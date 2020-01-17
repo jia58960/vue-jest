@@ -3,9 +3,19 @@
     <p class="title">
       正在进行
       <span class="undo-count">{{ lists.length }}</span></p>
+
     <ul class="undolist-wrapper">
-      <li class="undo-list" v-for="(item, index) in lists" :key="item">{{ item }}
-        <b class="undo-delete" @click="emitDeleteEvt(index)">-</b></li>
+      <li class="undo-list"
+        v-for="(item, index) in lists"
+        @click="emitChangeEvt(index)"
+        :key="item.value">
+        <input v-if="item.status === 'input'" type="text"
+        class="undo-input"
+        @blur="emitBlurEvt(index)"
+        @change="emitSaveEvt($event, index)"
+        :value="item.value">
+        <span v-else>{{ item.value }}</span>
+        <b class="undo-delete" @click.stop="emitDeleteEvt(index)">-</b></li>
     </ul>
   </div>
 </template>
@@ -17,6 +27,18 @@ export default {
   methods: {
     emitDeleteEvt (index) {
       this.$emit('delete', index)
+    },
+    emitChangeEvt (index) {
+      this.$emit('change', index)
+    },
+    emitBlurEvt (index) {
+      this.$emit('reset')
+    },
+    emitSaveEvt (evt, index) {
+      this.$emit('save', {
+        val: evt.target.value,
+        index
+      })
     }
   }
 }
