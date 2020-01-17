@@ -13,11 +13,6 @@
 <script>
 export default {
   name: 'UndoList',
-  data () {
-    return {
-
-    }
-  },
   props: ['lists'],
   methods: {
     emitDeleteEvt (index) {
