@@ -47,6 +47,6 @@ describe('Header 组件测试', () => {
     input.setValue('Ethan')
     input.trigger('keyup.enter')
     expect(wrapper.emitted().add).toBeTruthy()
-    expect(wrapper.vm.$data.inputVal).toBe('')
+    expect(wrapper.vm.inputVal).toBe('')
   })
 })
