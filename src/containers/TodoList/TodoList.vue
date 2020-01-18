@@ -26,10 +26,14 @@ export default {
   },
   methods: {
     addUndoList (item) {
-      this.undoList.push({
-        value: item,
-        status: 'div'
-      })
+      if (!this.undoList.some(todo => item === todo.value)) {
+        this.undoList.push({
+          value: item,
+          status: 'div'
+        })
+      } else {
+        console.log('事项已存在！')
+      }
     },
     deleteUndoItem (i) {
       this.undoList.splice(i, 1)

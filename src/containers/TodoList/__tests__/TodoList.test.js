@@ -10,6 +10,21 @@ describe('TodoList 组件测试', () => {
     expect(wrapper.vm.undoList).toEqual([])
   })
 
+  test('调用 addUndoList,若已存在某事项，则该事项不push到undoList ', () => {
+    const wrapper = shallowMount(TodoList)
+    wrapper.setData({
+      undoList: [
+        { value: 1, status: 'div' },
+        { value: 2, status: 'div' },
+        { value: 3, status: 'div' }]
+    })
+    wrapper.vm.addUndoList(3)
+    expect(wrapper.vm.$data.undoList).toEqual([
+      { value: 1, status: 'div' },
+      { value: 2, status: 'div' },
+      { value: 3, status: 'div' }])
+  })
+
   test('调用 addUndoList后 undoList会增加内容', () => {
     const wrapper = shallowMount(TodoList)
     wrapper.setData({
