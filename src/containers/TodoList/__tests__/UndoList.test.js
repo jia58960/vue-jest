@@ -55,7 +55,7 @@ describe('UndoList 组件测试', () => {
     expect(wrapper.emitted().change).toBeTruthy()
   })
 
-  test('列表显示1个输入框,两个列表项', () => {
+  test('三个事项，其中一个正在编辑时，列表显示1个输入框两个列表项', () => {
     const wrapper = shallowMount(UndoList, {
       propsData: {
         lists: [

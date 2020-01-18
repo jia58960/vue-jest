@@ -23,7 +23,7 @@ export default {
     addTodoItem () {
       const realVal = this.inputVal.trim()
       const len = realVal.length
-      if (realVal && len >= 4 && len <= 10) {
+      if (realVal && len >= 4 && len <= 10 && !/\//.test(realVal)) {
         this.$emit('add', this.inputVal)
         this.inputVal = ''
       }
