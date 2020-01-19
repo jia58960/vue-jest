@@ -4,7 +4,7 @@
       正在进行
       <span class="undo-count">{{ lists.length }}</span></p>
 
-    <ul class="undolist-wrapper">
+    <ul v-if="lists.length" class="undolist-wrapper">
       <li class="undo-list"
         v-for="(item, index) in lists"
         @click="emitChangeEvt(index)"
@@ -17,6 +17,7 @@
         <span v-else>{{ item.value }}</span>
         <b class="undo-delete" @click.stop="emitDeleteEvt(index)">-</b></li>
     </ul>
+    <p class="no-data" v-else>暂无数据！</p>
   </div>
 </template>
 

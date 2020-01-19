@@ -3,8 +3,10 @@ import {
 } from '@vue/test-utils'
 import TodoList from '../../TodoList.vue'
 import store from '../../../../store/index'
+import axios from 'axios'
 
 beforeEach(() => {
+  axios.success = true
   jest.useFakeTimers()
 })
 
@@ -20,15 +22,26 @@ describe('TodoList组件集成测试', () => {
     expect(todo.at(0).text()).toContain('Ethan')
   })
 
-  test('初始化时等待5秒从axios中拿到3条数据 ', () => {
+  test('初始化异步请求拿到3条数据 ', (done) => {
     const wrapper = mount(TodoList, {
       store
     })
-    expect(setTimeout).toHaveBeenCalledTimes(1)
-    jest.runAllTimers()
     wrapper.vm.$nextTick(() => {
       const todo = wrapper.findAll('.undo-list')
       expect(todo.length).toBe(3)
+      done()
+    })
+  })
+
+  test('初始化异步请求失败时显示获取数据失败 ', (done) => {
+    axios.success = false
+    const wrapper = mount(TodoList, {
+      store
+    })
+    wrapper.vm.$nextTick(() => {
+      const todo = wrapper.findAll('.no-data')
+      expect(todo.length).toBe(1)
+      done()
     })
   })
 })
