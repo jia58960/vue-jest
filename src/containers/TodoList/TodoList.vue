@@ -26,11 +26,10 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      axios.get('/undolist.json').then((res) => {
-        this.undoList = res.data
-      }).catch(e => console.log(e))
-    }, 5000)
+    // 会自动找离的最近的__mocks__目录下的axios.js文件模拟
+    axios.get('/undolist.json').then((res) => {
+      this.undoList = res.data
+    }).catch(e => console.log(e))
   },
   methods: {
     addUndoList (item) {
